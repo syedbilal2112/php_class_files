@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+		<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<table class="table" id="history_display">
+    <thead>
+     <th>ID</th>
+      <th>Name</th>
+      <th>email</th>
+      <th>Password</th>
+      <!-- <th>Action</th> -->
+    </thead>
+</table>
+
+<script type="text/javascript">
+	$(function(){
+			$.ajax({
+				url:'view.php',
+				type:'get',
+				data:{
+
+				},
+				success: function(response){
+					alert(response)
+					var obj=JSON.parse(response);
+
+                        var table_content=""
+                        $('#history_display').find( 'tr:not(:first)' ).remove();
+                        $.each(obj,function(index,value){
+                            table_content+="<tr>";
+                            table_content+="<td>"+value.id+"</td>";
+                            table_content+="<td>"+value.name+"</td>";
+                            table_content+="<td>"+value.email+"</td>";
+                            table_content+="<td>"+value.password+"</td>";
+  // table_content+="<td><a class='btn btn-primary' href='edit.php?id="+value.id+"'>Edit</a><button class='btn btn-danger' onclick='delet("+value.id+")'>Delete</button><button type='button' class='btn btn-info' onclick='model("+value.id+")' >View</button></td>";
+                            table_content+="</tr>";
+                        });
+                        $("#history_display").append(table_content);
+				},
+				error: function(){
+					alert('Something went wrong');
+				}
+			})
+		})
+		
+</script>
+</body>
+</html>
