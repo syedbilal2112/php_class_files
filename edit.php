@@ -12,6 +12,28 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+  <?php $id=$_GET['id'];
+    
+    include 'conn.php';
+
+  $query="SELECT * FROM `users` where id='$id'";
+  $result=mysqli_query($con,$query);
+  $json_data=array();
+  while($row=mysqli_fetch_assoc($result)){
+    $name=$row['name'];
+    $email=$row['email'];
+  }
+  
+  ?>
+    <form>
+      <input type="hidden" name="id" value="<?php echo $id?>" id="id">
+  <label>Enter Name</label>
+  <input  class="form-control" type="text" id="name" name="name" value="<?php echo $name?>"><br>
+
+  <label>Enter Email</label>
+  <input  class="form-control" type="email" id="email" name="email" value="<?php echo $email?>"><br>
+  <button type="button" id="btn">Update</button>
+</form>
 <table class="table" id="history_display">
     <thead>
      <th>ID</th>
@@ -24,6 +46,30 @@
 
 <script type="text/javascript">
 	$(function(){
+
+    $('#btn').click(function(){
+
+      var a=document.getElementById('name').value;
+      var b=document.getElementById('email').value;
+      var c=document.getElementById('id').value;
+      alert(a+b+c)
+      $.ajax({
+        url:'update.php',
+        type:'post',
+        data:{
+          "name":a,
+          "email":b,
+          "id":c
+        },
+        success:function(){
+          alert('row added Updated')
+        },
+        error:function(){
+          alert('something went wrong')
+        }
+      })
+    })
+
 			$.ajax({
 				url:'view.php',
 				type:'get',
@@ -31,7 +77,6 @@
 
 				},
 				success: function(response){
-					
 					var obj=JSON.parse(response);
 
                         var table_content=""
