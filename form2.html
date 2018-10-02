@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+		<form>
+	<label>Enter Name</label><input  class="form-control" type="text" id="name" name="name"><br>
+	<label>Enter Name</label><input  class="form-control" type="email" id="email" name="email"><br>
+	<label>Enter Name</label><input  class="form-control" type="password" id="password" name="password"><br>
+	<button type="button" id="btn">Submit</button>
+</form>
+
+<script type="text/javascript">
+	$(function(){
+
+		$('#btn').click(function(){
+
+			var a=document.getElementById('name').value;
+			var b=document.getElementById('email').value;
+			var c=document.getElementById('password').value;
+			alert(a+b+c)
+			$.ajax({
+				url:'insert.php',
+				type:'post',
+				data:{
+					"name":a,
+					"email":b,
+					"password":c
+				},
+				success:function(){
+					alert('row added successfully')
+				},
+				error:function(){
+					alert('something went wrong')
+				}
+			})
+		})
+	})
+
+		
+</script>
+</body>
+</html>
