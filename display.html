@@ -32,9 +32,11 @@
           <h4 class="modal-title">Details</h4>
         </div>
         <div class="modal-body">
-          <label> Name</label><input  class="form-control" disabled type="text" id="name1" name="name"><br>
-	<label> Email</label><input  class="form-control" disabled type="email" id="email1" name="email"><br>
-	<label> Password</label><input  class="form-control" disabled type="password" id="password1" name="password"><br>
+          <label> Name</label>
+          <input  class="form-control" disabled type="text" id="name" name="name"><br>
+	<label> Email</label>
+	<input  class="form-control" disabled type="email" id="email" name="email"><br>
+	<label> Password</label><input  class="form-control" disabled type="password" id="password" name="password"><br>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -61,7 +63,7 @@
 	}
 	function view(id){
 	$.ajax({
-        url:'delete.php',
+        url:'view.php',
         type:'post',
         data:{
 			"id":id
@@ -70,7 +72,6 @@
 			var obj=JSON.parse(data);
 
                $.each(obj,function(index,value){
-			
 			 $('#name').val(value.name);
 			 $('#email').val(value.email);
 			 $('#password').val(value.password);
