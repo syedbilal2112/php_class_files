@@ -1,0 +1,10 @@
+git init
+git add .
+git config --global user.name "user_name"
+git commit -m "first commit"
+git remote add origin git@github.com:user_name/project_name.git
+git remote set-url origin https://github.com/user_name/project_name.git
+git push -f origin master
+git status
+git pull
+git clone https://github.com/user_name/project_name.git
