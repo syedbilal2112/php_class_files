@@ -22,6 +22,7 @@
   while($row=mysqli_fetch_assoc($result)){
     $name=$row['name'];
     $email=$row['email'];
+    $profile_pic=$row['profile_pic'];
   }
   
   ?>
@@ -34,6 +35,10 @@
   <input  class="form-control" type="email" id="email" name="email" value="<?php echo $email?>"><br>
   <button type="button" id="btn">Update</button>
 </form>
+  <img src="<?php echo $profile_pic?>" id="profile_pic" width="150px" height="150px" style="border-radius: 50%">
+    <input type="file" name="files[]" id="file" accept=".pdf" required/>
+    <br>
+     <button type="button" id="upload_profile_pic" class="btn btn-primary ">Update Pic</button>
 <table class="table" id="history_display">
     <thead>
      <th>ID</th>
@@ -46,7 +51,55 @@
 
 <script type="text/javascript">
 	$(function(){
+               $('#file').on('change', function () {
+                    var file_data = $('#file').prop('files')[0];
+                    var form_data = new FormData();
+                    form_data.append('file', file_data);
+                    $.ajax({
+                        url: 'upload.php', // point to server-side PHP script 
+                        dataType: 'text', // what to expect back from the PHP script
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: form_data,
+                        type: 'post',
+                        success: function (response) {
+                        
+                            alert(response)
+                            document.getElementById("profile_pic").src=response;
+                            x=response;
 
+                           
+                        },
+                        error: function (response) {
+                          
+                           alert(response);
+                        }
+                    });
+               });
+    $('#upload_profile_pic').on('click', function () {
+
+               
+                  var id=$("#id").val();
+                  var profile=x;
+                   
+                        $.ajax({
+                            url:"update_profile_pic.php",
+                            type:"post",
+                            data:{
+                                "id":id,
+                                "profile":profile
+                            },
+                            success:function(data){
+                              alert(data);
+                             // window.reload();   
+                              },
+                              error:function(){
+                                alert(';hi');
+                              }
+                });
+           
+      });
     $('#btn').click(function(){
 
       var a=document.getElementById('name').value;

@@ -13,5 +13,6 @@
 	?>
 
 Welcome <?php echo $a;?>
+<a href="logout.php">Logout</a>
 </body>
 </html>
